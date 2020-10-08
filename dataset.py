@@ -15,7 +15,7 @@ from utils import utils
 
 
 class Flickr30dataset(Dataset):
-	def __init__(self, wordEmbedding, name = 'train', dataroot = 'dataset/flickr30k/', vgg = False):
+	def __init__(self, wordEmbedding, name = 'train', dataroot = 'data/flickr30k/', vgg = False):
 		super(Flickr30dataset, self).__init__()
 		self.vgg = vgg
 		self.entries, self.img_id2idx = load_dataset(name, dataroot, vgg = self.vgg)
@@ -38,7 +38,7 @@ class Flickr30dataset(Dataset):
 			attrs = []
 		else :
 			attrs = entry['attrs']
-		return entry['image'], entry['labels'], entry['query'], attrs
+		return entry['image'], entry['labels'], entry['query'], attrs, entry['detected_bboxes'], entry['target_bboxes']
 
 	def __getitem__(self, index):
 		'''
@@ -58,7 +58,7 @@ class Flickr30dataset(Dataset):
 		lens = 12
 		B = 20
 
-		imgid, labels, querys, attrs = self._get_entry(index)
+		imgid, labels, querys, attrs, bboxes, target_bboxes = self._get_entry(index)
 
 		idx = self.img_id2idx[int(imgid)]  # to retrieve pos in pos_box
 		pos = self.pos_boxes[idx]
@@ -95,9 +95,6 @@ class Flickr30dataset(Dataset):
 		while (len(querys_idx) < Q):
 			querys_idx.append([0] * lens)
 		querys_idx = querys_idx[:Q]
-
-		bboxes = entry['detected_bboxes']  # [x1,y1,x2,y2]
-		target_bboxes = entry['target_bboxes']
 
 		padbox = [0, 0, 0, 0]
 
@@ -189,7 +186,6 @@ def load_train_flickr30k(dataroot, img_id2idx, obj_detection, vgg = False):
 		assert (len(bboxes) == len(labels))
 
 		# Parse Sentence
-		sent_entries = []
 		for sent_id, sent in enumerate(sents):
 			sentence = utils.remove_annotations(sent)
 			entities = re.findall(pattern_phrase, sent)
@@ -248,17 +244,17 @@ def load_train_flickr30k(dataroot, img_id2idx, obj_detection, vgg = False):
 				}
 				entries.append(entry)
 
-		print("Load Down!")
-		return entries
+	print("Load Done!")
+	return entries
 
 
-def load_dataset(name = 'train', dataroot = 'dataset/flickr30k/', vgg = False):
+def load_dataset(name = 'train', dataroot = 'data/flickr30k/', vgg = False):
 	if vgg:
 		print("load vgg object det dict")
-		obj_detection_dict = json.load(open("dataset/obj_detection_vgg_pascal_vgbbox.json", "r"))
+		obj_detection_dict = json.load(open("data/obj_detection_vgg_pascal_vgbbox.json", "r"))
 		img_id2idx = cPickle.load(open(os.path.join(dataroot, 'vgg_pascal_vgbbox_%s_imgid2idx.pkl' % name), 'rb'))
 	else:
-		obj_detection_dict = json.load(open("dataset/%s_dataset.json" % name, "r"))
+		obj_detection_dict = json.load(open("data/%s_dataset.json" % name, "r"))
 		img_id2idx = cPickle.load(open(os.path.join(dataroot, '%s_imgid2idx.pkl' % name), 'rb'))
 
 	entries = load_train_flickr30k(dataroot, img_id2idx, obj_detection_dict, vgg = vgg)
@@ -291,7 +287,7 @@ def gen_obj_dict(obj_detection):
 
 if __name__ == "__main__":
 	name = "test"
-	obj_detection = json.load(open("dataset/obj_detection_0.1.json", "r"))
+	obj_detection = json.load(open("data/obj_detection_0.1.json", "r"))
 	obj_detection_dict = gen_obj_dict(obj_detection)
-	with open("dataset/%s_detect_dict.json" % name, "w") as f:
+	with open("data/%s_detect_dict.json" % name, "w") as f:
 		json.dump(obj_detection_dict, f)
