@@ -186,7 +186,7 @@ def unsupervised_get_match_index(src_bboxes, dst_bboxes):
 	return list(indices)
 
 
-def read_word_embeddings(embeddings_file: str) -> WordEmbeddings:
+def load_vocabulary(embeddings_file: str) -> WordEmbeddings:
 	f = open(embeddings_file)
 	word_indexer = WordIndexer()
 	vectors = []

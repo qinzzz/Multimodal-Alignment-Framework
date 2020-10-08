@@ -68,7 +68,7 @@ def train(model, train_loader, test_loader, lr = 1e-4, epochs = 25):
 		print("     eval score on test dataset:", score)
 
 
-def evaluate(train_loader, model):
+def evaluate(test_loader, model):
 	use_gpu = torch.cuda.is_available()
 
 	correct_preds = 0
@@ -81,7 +81,7 @@ def evaluate(train_loader, model):
 	num_query_list = []
 
 	for idx, labels, attrs, feature, query, bboxes, target_bboxes, num_obj, num_query in tqdm(
-			train_loader):
+			test_loader):
 		if (use_gpu):
 			idx, labels, attrs, feature, query, bboxes, target_bboxes, num_obj, num_query = \
 			idx.cuda(), labels.cuda(), attrs.cuda(), feature.cuda(), query.cuda(), bboxes.cuda(), target_bboxes.cuda(), num_obj.cuda(), num_query.cuda()
@@ -111,12 +111,12 @@ def evaluate_helper(pred_bboxes, target_bboxes, num_query):
 	evaluator = Evaluator()
 	gtbox_list = []
 	pred_list = []
-	for ipred, itarget, nq in zip(pred_bboxes, target_bboxes, num_query):
+	for pred, targ, nq in zip(pred_bboxes, target_bboxes, num_query):
 		# ipred: [query, 5]
 		# itarget: [query, 12, 4]
 		if nq > 0:
-			gtbox_list += union_target(itarget[:nq])  # [query, 4]
-			pred_list += ipred[:nq]
+			pred_list += pred[:nq]
+			gtbox_list += union_target(targ[:nq])  # [query, 4]
 
 	accuracy, _ = evaluator.evaluate(pred_list, gtbox_list)  # [query, 4]
 	return accuracy
