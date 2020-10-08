@@ -1,5 +1,5 @@
-from numpy import np
 from scipy import spatial
+import numpy as np
 
 
 class WordEmbeddings():
