@@ -7,7 +7,8 @@ import numpy as np
 import torch
 from torch.utils.data import DataLoader
 
-from dataset import Flickr30dataset, read_word_embeddings
+from dataset import Flickr30dataset
+from utils.utils import read_word_embeddings
 from model import MATnet
 from train_model import train
 
@@ -53,7 +54,7 @@ if __name__ == '__main__':
 	if torch.cuda.device_count() >= 1:
 		print("Use {} gpus".format(torch.cuda.device_count()))
 
-	wordEmbedding = read_word_embeddings("dataset/glove/glove.6B.300d.txt")
+	wordEmbedding = read_word_embeddings("data/glove/glove.6B.300d.txt")
 	if args.test_set:
 		test_dset = Flickr30dataset(wordEmbedding, "test", vgg = args.vgg)
 	else:
