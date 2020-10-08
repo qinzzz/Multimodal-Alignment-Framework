@@ -38,7 +38,7 @@ class Flickr30dataset(Dataset):
 			attrs = []
 		else :
 			attrs = entry['attrs']
-		return entry['image'], entry['labels'], entry['query'], attrs
+		return entry['image'], entry['labels'], entry['query'], attrs, entry['detected_bboxes'], entry['target_bboxes']
 
 	def __getitem__(self, index):
 		'''
@@ -58,7 +58,7 @@ class Flickr30dataset(Dataset):
 		lens = 12
 		B = 20
 
-		imgid, labels, querys, attrs = self._get_entry(index)
+		imgid, labels, querys, attrs, bboxes, target_bboxes = self._get_entry(index)
 
 		idx = self.img_id2idx[int(imgid)]  # to retrieve pos in pos_box
 		pos = self.pos_boxes[idx]
@@ -95,9 +95,6 @@ class Flickr30dataset(Dataset):
 		while (len(querys_idx) < Q):
 			querys_idx.append([0] * lens)
 		querys_idx = querys_idx[:Q]
-
-		bboxes = entry['detected_bboxes']  # [x1,y1,x2,y2]
-		target_bboxes = entry['target_bboxes']
 
 		padbox = [0, 0, 0, 0]
 
@@ -189,7 +186,6 @@ def load_train_flickr30k(dataroot, img_id2idx, obj_detection, vgg = False):
 		assert (len(bboxes) == len(labels))
 
 		# Parse Sentence
-		sent_entries = []
 		for sent_id, sent in enumerate(sents):
 			sentence = utils.remove_annotations(sent)
 			entities = re.findall(pattern_phrase, sent)
@@ -248,8 +244,8 @@ def load_train_flickr30k(dataroot, img_id2idx, obj_detection, vgg = False):
 				}
 				entries.append(entry)
 
-		print("Load Down!")
-		return entries
+	print("Load Done!")
+	return entries
 
 
 def load_dataset(name = 'train', dataroot = 'data/flickr30k/', vgg = False):
