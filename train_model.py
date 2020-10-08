@@ -74,7 +74,7 @@ def evaluate(train_loader, model):
 	correct_preds = 0
 	all_preds = 0
 
-	model = model.fmodel_evalloat()
+	model = model.float()
 
 	pred_bboxes_list = []
 	target_bboxes_list = []

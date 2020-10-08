@@ -15,7 +15,7 @@ from utils import utils
 
 
 class Flickr30dataset(Dataset):
-	def __init__(self, wordEmbedding, name = 'train', dataroot = 'dataset/flickr30k/', vgg = False):
+	def __init__(self, wordEmbedding, name = 'train', dataroot = 'data/flickr30k/', vgg = False):
 		super(Flickr30dataset, self).__init__()
 		self.vgg = vgg
 		self.entries, self.img_id2idx = load_dataset(name, dataroot, vgg = self.vgg)
@@ -189,7 +189,6 @@ def load_train_flickr30k(dataroot, img_id2idx, obj_detection, vgg = False):
 		assert (len(bboxes) == len(labels))
 
 		# Parse Sentence
-		sent_entries = []
 		for sent_id, sent in enumerate(sents):
 			sentence = utils.remove_annotations(sent)
 			entities = re.findall(pattern_phrase, sent)
@@ -248,17 +247,17 @@ def load_train_flickr30k(dataroot, img_id2idx, obj_detection, vgg = False):
 				}
 				entries.append(entry)
 
-		print("Load Down!")
-		return entries
+	print("Load Done!")
+	return entries
 
 
-def load_dataset(name = 'train', dataroot = 'dataset/flickr30k/', vgg = False):
+def load_dataset(name = 'train', dataroot = 'data/flickr30k/', vgg = False):
 	if vgg:
 		print("load vgg object det dict")
-		obj_detection_dict = json.load(open("dataset/obj_detection_vgg_pascal_vgbbox.json", "r"))
+		obj_detection_dict = json.load(open("data/obj_detection_vgg_pascal_vgbbox.json", "r"))
 		img_id2idx = cPickle.load(open(os.path.join(dataroot, 'vgg_pascal_vgbbox_%s_imgid2idx.pkl' % name), 'rb'))
 	else:
-		obj_detection_dict = json.load(open("dataset/%s_dataset.json" % name, "r"))
+		obj_detection_dict = json.load(open("data/%s_dataset.json" % name, "r"))
 		img_id2idx = cPickle.load(open(os.path.join(dataroot, '%s_imgid2idx.pkl' % name), 'rb'))
 
 	entries = load_train_flickr30k(dataroot, img_id2idx, obj_detection_dict, vgg = vgg)
@@ -291,7 +290,7 @@ def gen_obj_dict(obj_detection):
 
 if __name__ == "__main__":
 	name = "test"
-	obj_detection = json.load(open("dataset/obj_detection_0.1.json", "r"))
+	obj_detection = json.load(open("data/obj_detection_0.1.json", "r"))
 	obj_detection_dict = gen_obj_dict(obj_detection)
-	with open("dataset/%s_detect_dict.json" % name, "w") as f:
+	with open("data/%s_detect_dict.json" % name, "w") as f:
 		json.dump(obj_detection_dict, f)
