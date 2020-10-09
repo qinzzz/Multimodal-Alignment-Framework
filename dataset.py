@@ -26,7 +26,7 @@ class Flickr30dataset(Dataset):
 			print("load vgg features")
 			h5_path = os.path.join(dataroot, 'vgg_dataset_pascal_vgbbox.hdf5')
 		else:
-			h5_path = os.path.join(dataroot, 'my%s.hdf5' % name)
+			h5_path = os.path.join(dataroot, 'flickr30k_features.hdf5' % name)
 
 		with h5py.File(h5_path, 'r') as hf:
 			self.features = np.array(hf.get('features'))
@@ -254,8 +254,8 @@ def load_dataset(name = 'train', dataroot = 'data/flickr30k/', vgg = False):
 		obj_detection_dict = json.load(open("data/obj_detection_vgg_pascal_vgbbox.json", "r"))
 		img_id2idx = cPickle.load(open(os.path.join(dataroot, 'vgg_pascal_vgbbox_%s_imgid2idx.pkl' % name), 'rb'))
 	else:
-		obj_detection_dict = json.load(open("data/%s_dataset.json" % name, "r"))
-		img_id2idx = cPickle.load(open(os.path.join(dataroot, '%s_imgid2idx.pkl' % name), 'rb'))
+		obj_detection_dict = json.load(open("data/obj_detection_dict_0.1.json" % name, "r"))
+		img_id2idx = cPickle.load(open(os.path.join(dataroot, 'maf_%s_imgid2idx.pkl' % name), 'rb'))
 
 	entries = load_train_flickr30k(dataroot, img_id2idx, obj_detection_dict, vgg = vgg)
 	print("load flickr30k dataset successfully.")
@@ -283,11 +283,3 @@ def gen_obj_dict(obj_detection):
 
 		obj_detect_dict[img_id] = tmp
 	return obj_detect_dict
-
-
-if __name__ == "__main__":
-	name = "test"
-	obj_detection = json.load(open("data/obj_detection_0.1.json", "r"))
-	obj_detection_dict = gen_obj_dict(obj_detection)
-	with open("data/%s_detect_dict.json" % name, "w") as f:
-		json.dump(obj_detection_dict, f)
