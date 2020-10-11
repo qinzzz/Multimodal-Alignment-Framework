@@ -30,11 +30,9 @@ to downloaded and process flickr30k images and Glove word embeddings.
 We use an off-the-shelf [faster-rcnn](https://github.com/jwyang/faster-rcnn.pytorch) pretrained on Visual Genome 
 to generate objects proposals, labels and features.
 
-run 
-`
-sh tools/prepare_feature.sh
-`
-to perform faster-rcnn on Flickr30k Entities and generate image features. 
+run ` sh tools/prepare_detection.sh ` to clone faster-rcnn code and download pre-trained models.
+
+run ` sh tools/run_faster_rcnn.sh ` to run faster-rcnn detection on flickr30k dataset and generate features.
 
 *NOTE: you may have to customize your environment in order to run faster-rcnn successfully. 
 See [prerequisites](https://github.com/jwyang/faster-rcnn.pytorch#prerequisites)*

@@ -11,7 +11,7 @@ from utils.utils import load_vocabulary, init_net
 
 def parse_args():
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--file', type = str, default = "saved/model_lf_1e-5_64_0527_a20",
+	parser.add_argument('--file', type = str, default = "saved/model_0527_a20",
 						help = "saved model name")
 
 	args = parser.parse_args()
