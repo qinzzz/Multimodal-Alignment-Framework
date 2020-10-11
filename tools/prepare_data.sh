@@ -2,16 +2,16 @@
 # Based on ban-vqa (https://github.com/jnhwkim/ban-vqa/)
 
 # Download Flickr30k Entities data mannually into data/flickr30k
+mkdir -p data/flickr30k
 
-# https://github.com/BryanPlummer/flickr30k_entities/blob/master/annotations.zip
-# Unpack Flickr30kEntities.tar.gz
-tar xvf data/flickr30k/Flickr30kEntities.tar.gz -C data/flickr30k
-rm data/flickr30k/Flickr30kEntities.tar.gz
+wget -P data/flickr30k https://raw.githubusercontent.com/BryanPlummer/flickr30k_entities/master/annotations.zip
+# Unpack
+unzip data/flickr30k/annotations.zip -d data/flickr30k
+rm data/flickr30k/annotations.zip
 
 
 # Download Flickr30k images and captions data
 # https://drive.google.com/file/d/0B_PL6p-5reUAZEM4MmRQQ2VVSlk/view?usp=sharing
-mkdir -p data/flickr30k
 
 wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://drive.google.com/uc?export=download&id=0B_PL6p-5reUAZEM4MmRQQ2VVSlk' -O tmp.html
 wget --load-cookies /tmp/cookies.txt "https://drive.google.com/uc?export=download&confirm=$(cat tmp.html | sed -En 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=0B_PL6p-5reUAZEM4MmRQQ2VVSlk" -O data/flickr30k/flickr30k_images.tar.gz

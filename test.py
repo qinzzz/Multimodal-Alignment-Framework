@@ -4,7 +4,7 @@ import torch
 from torch.utils.data import DataLoader
 
 from dataset import Flickr30dataset
-from net import MATnet
+from model import MATnet
 from train_model import evaluate
 from utils.utils import load_vocabulary, init_net
 

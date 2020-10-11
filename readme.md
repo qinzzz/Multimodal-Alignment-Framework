@@ -7,14 +7,16 @@ Some of our code is based on [ban-vqa](https://github.com/jnhwkim/ban-vqa). Than
 
 ## Prerequisites
 - python 3.7
-- pyotrch 1.4.0 
+- pytorch 1.4.0 
+
 
 ## Data
 
 ### Flickr30k Entities
 We use flickr30k dataset to train and validate our model.
 
-Download the raw dataset manually from [Flickr30k Entites](https://github.com/BryanPlummer/flickr30k_entities/annotations.zip).
+Download the raw dataset [Flickr30k Entites Annotations](https://github.com/BryanPlummer/flickr30k_entities/blob/master/annotations.zip)
+to `data/flickr30k/annotations.zip` manually.
 
 Then run
 `
@@ -33,6 +35,9 @@ run
 sh tools/prepare_feature.sh
 `
 to perform faster-rcnn on Flickr30k Entities and generate image features. 
+
+*NOTE: you may have to customize your environment in order to run faster-rcnn successfully. 
+See [prerequisites](https://github.com/jwyang/faster-rcnn.pytorch#prerequisites)*
 
 
 ## Training

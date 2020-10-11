@@ -11,12 +11,8 @@
 # |__ faster-rcnn.pytorch
 
 
-if [[ ! -d data/flickr30k ]]; then
-    mkdir -p data/flickr30k
-fi
-
 cd ../
-git clone https://github.com/qinzzz/faster-rcnn.pytorch/tree/pytorch-1.0
+git clone https://github.com/qinzzz/faster-rcnn.pytorch.git -b pytorch-1.0
 cd faster-rcnn.pytorch
 
 
@@ -55,5 +51,3 @@ wget
 # generate id2idx for train, test and validation
 cd ../../
 python split_pkl_idx.py
-
-echo "processing done!"
