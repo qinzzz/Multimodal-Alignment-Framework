@@ -11,7 +11,7 @@ from utils.utils import load_vocabulary, init_net
 
 def parse_args():
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--file', type = str, default = "saved/model_0527_a20",
+	parser.add_argument('--file', type = str, default = "saved/model_0527_a20.pt",
 						help = "saved model name")
 
 	args = parser.parse_args()
@@ -22,10 +22,10 @@ if __name__ == '__main__':
 	args = parse_args()
 
 	wordEmbedding = load_vocabulary("data/glove/glove.6B.300d.txt")
-	test_dset = Flickr30dataset(wordEmbedding, "test", vgg = args.vgg)
+	test_dset = Flickr30dataset(wordEmbedding, "test")
 
-	test_loader = DataLoader(test_dset, batch_size = args.batch, num_workers = 4, drop_last = True, shuffle = True)
-	net = MATnet(wordEmbedding, vgg = args.vgg)
+	test_loader = DataLoader(test_dset, batch_size = 32, num_workers = 4, drop_last = True, shuffle = True)
+	net = MATnet(wordEmbedding)
 	if torch.cuda.is_available():
 		print("CUDA available")
 		net.cuda()

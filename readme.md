@@ -37,6 +37,9 @@ run ` sh tools/run_faster_rcnn.sh ` to run faster-rcnn detection on flickr30k da
 *NOTE: you may have to customize your environment in order to run faster-rcnn successfully. 
 See [prerequisites](https://github.com/jwyang/faster-rcnn.pytorch#prerequisites)*
 
+*NOTE: you may have to customize your environment in order to run faster-rcnn successfully. 
+See [prerequisites](https://github.com/jwyang/faster-rcnn.pytorch#prerequisites)*
+
 
 ## Training
 
