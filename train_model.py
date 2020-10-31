@@ -80,8 +80,7 @@ def evaluate(test_loader, model):
 	target_bboxes_list = []
 	num_query_list = []
 
-	for idx, labels, attrs, feature, query, bboxes, target_bboxes, num_obj, num_query in tqdm(
-			test_loader):
+	for idx, labels, attrs, feature, query, bboxes, target_bboxes, num_obj, num_query in tqdm(test_loader):
 		if (use_gpu):
 			idx, labels, attrs, feature, query, bboxes, target_bboxes, num_obj, num_query = \
 			idx.cuda(), labels.cuda(), attrs.cuda(), feature.cuda(), query.cuda(), bboxes.cuda(), target_bboxes.cuda(), num_obj.cuda(), num_query.cuda()

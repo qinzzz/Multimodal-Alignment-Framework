@@ -15,12 +15,12 @@ python demo.py --net res101 --checksession 1 --checkepoch 20 --checkpoint 16193 
 # maf_imgid2idx.pkl
 
 cd ../Multimodal_Alignment_Framework/data
-ln -s obj_detection_0.1.json ../../faster-rcnn.pytorch/obj_detection_0.1.json
+ln -s ../../faster-rcnn.pytorch/obj_detection_dict_0.1.json .
 
 cd flickr30k
-ln -s flickr30k_features.hdf5 ../../../faster-rcnn.pytorch/flickr30k_features.hdf5
-ln -s maf_imgid2idx.pkl ../../../faster-rcnn.pytorch/maf_imgid2idx.pkl
+ln -s ../../../faster-rcnn.pytorch/flickr30k_features.hdf5 .
+ln -s ../../../faster-rcnn.pytorch/maf_imgid2idx.pkl .
 
 # generate id2idx for train, test and validation
 cd ../../
-python split_pkl_idx.py
+# python split_pkl_idx.py

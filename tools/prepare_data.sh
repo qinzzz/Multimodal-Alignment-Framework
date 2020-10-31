@@ -2,11 +2,11 @@
 # Based on ban-vqa (https://github.com/jnhwkim/ban-vqa/)
 
 # Download Flickr30k Entities data mannually into data/flickr30k
-mkdir -p data/flickr30k
+mkdir -p data/flickr30k/Flickr30kEntities
 
 wget -P data/flickr30k https://raw.githubusercontent.com/BryanPlummer/flickr30k_entities/master/annotations.zip
 # Unpack
-unzip data/flickr30k/annotations.zip -d data/flickr30k
+unzip data/flickr30k/annotations.zip -d data/flickr30k/Flickr30kEntities
 rm data/flickr30k/annotations.zip
 
 
