@@ -1,9 +1,11 @@
 # Multimodal Alignment Framework
-**under construction**
 
 Implementation of MAF: Multimodal Alignment Framework for Weakly-Supervised Phrase Grounding.
 
 Some of our code is based on [ban-vqa](https://github.com/jnhwkim/ban-vqa). Thanks!
+
+**TODO**
+provide Faster R-CNN feature extraction script.
 
 
 ## Prerequisites
@@ -33,10 +35,11 @@ We use [Bottom-Up Attention](https://github.com/airsplay/py-bottom-up-attention)
 
 As [Issue#1](https://github.com/qinzzz/Multimodal-Alignment-Framework/issues/1#issue-727382153) pointed out, there is some inconsistency
 between features generated using our script (faster-rcnn) and Bottom-Up Attention.
-We will upload our generated features.
+We therefore upload our generated features.
 
-put [test_detection_dict.json](https://drive.google.com/file/d/1hVLDcsks2MuDJWpl2QB1H8DBCUefKCRY/view?usp=sharing) under data/ 
-and put [test features.hdf5](https://drive.google.com/file/d/1Uwv5S8qPp0rkCtR2bD8PNiYsJ0WL-u5a/view?usp=sharing) under data/flickr30k.
+Download [test features.hdf5](https://drive.google.com/file/d/1Uwv5S8qPp0rkCtR2bD8PNiYsJ0WL-u5a/view?usp=sharing) and [train_feature.hdf5](https://drive.google.com/file/d/1zxghit_mDyIKhZRemN6EDCZ3xMR4xPu5/view?usp=sharing)(20GB) to `data/flickr30k`.
+
+Download [test_detection_dict.json](https://drive.google.com/file/d/1-r4u45EyxY7uaIk6VxCZxCiBxaOlaTC2/view?usp=sharing) and [train_detection_dict.json](https://drive.google.com/file/d/1_S-zyKF7F8SIEht6V66Sqbsz9TBqzY-P/view?usp=sharing) to `data/`.
 
 ~~run ` sh tools/prepare_detection.sh ` to clone faster-rcnn code and download pre-trained models.~~
 
@@ -54,6 +57,7 @@ python main.py [args]
 
 In our experiments, we get a ~61% accuracy using the default setting.
 
+
 ## Evaluating
 
 Our trained model can be downloaded at [google drive](https://drive.google.com/file/d/1hVLDcsks2MuDJWpl2QB1H8DBCUefKCRY/view?usp=sharing).
@@ -61,3 +65,4 @@ Our trained model can be downloaded at [google drive](https://drive.google.com/f
 `
 python test.py --file <saved model>
 `
+
