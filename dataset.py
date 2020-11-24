@@ -26,7 +26,7 @@ class Flickr30dataset(Dataset):
 			print("load vgg features")
 			h5_path = os.path.join(dataroot, 'vgg_dataset_pascal_vgbbox.hdf5')
 		else:
-			h5_path = os.path.join(dataroot, 'my%s.hdf5' % name)
+			h5_path = os.path.join(dataroot, '%s_features.hdf5' % name)
 
 		with h5py.File(h5_path, 'r') as hf:
 			self.features = np.array(hf.get('features'))
