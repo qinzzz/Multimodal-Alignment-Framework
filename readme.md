@@ -39,7 +39,9 @@ As [Issue#1](https://github.com/qinzzz/Multimodal-Alignment-Framework/issues/1#i
 between features generated using our script (faster-rcnn) and Bottom-Up Attention.
 We therefore upload our generated features.
 
-Download [train_feature.hdf5](https://drive.google.com/file/d/1zxghit_mDyIKhZRemN6EDCZ3xMR4xPu5/view?usp=sharing)(20GB), [val features.hdf5](https://drive.google.com/file/d/1W_m8QdSmEZfsLj-clGE7lPOJV6jJgNa_/view?usp=sharing), and [test features.hdf5](https://drive.google.com/file/d/1Uwv5S8qPp0rkCtR2bD8PNiYsJ0WL-u5a/view?usp=sharing)to `data/flickr30k`.
+Download [train_feature.hdf5](https://drive.google.com/file/d/1zxghit_mDyIKhZRemN6EDCZ3xMR4xPu5/view?usp=sharing)(20GB), [val features.hdf5](https://drive.google.com/file/d/1W_m8QdSmEZfsLj-clGE7lPOJV6jJgNa_/view?usp=sharing), and [test features.hdf5](https://drive.google.com/file/d/1Uwv5S8qPp0rkCtR2bD8PNiYsJ0WL-u5a/view?usp=sharing) to `data/flickr30k`.
+
+alternative link for train_feature.hdf5: [baidu drive](https://pan.baidu.com/s/1cyiKNYZzpja-5brcn9QD1A), code: n1yd
 
 Download [train_detection_dict.json](https://drive.google.com/file/d/1_S-zyKF7F8SIEht6V66Sqbsz9TBqzY-P/view?usp=sharing), [val_detection_dict.json](https://drive.google.com/file/d/1KmyG0mghwydkb7pEwxDjItwZvNi_DRA4/view?usp=sharing), and [test_detection_dict.json](https://drive.google.com/file/d/1-r4u45EyxY7uaIk6VxCZxCiBxaOlaTC2/view?usp=sharing) and  to `data/`.
 
