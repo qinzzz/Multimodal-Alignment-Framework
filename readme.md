@@ -29,6 +29,8 @@ to downloaded and process Flickr30k Annotations, Images and Glove word embedding
 
 ### Object proposals
 
+#### Donwload object proposals:
+
 We use an off-the-shelf [faster-rcnn](https://github.com/jwyang/faster-rcnn.pytorch) pretrained on Visual Genome 
 to generate objects proposals and labels. 
 We use [Bottom-Up Attention](https://github.com/airsplay/py-bottom-up-attention) for visual features.
@@ -37,9 +39,11 @@ As [Issue#1](https://github.com/qinzzz/Multimodal-Alignment-Framework/issues/1#i
 between features generated using our script (faster-rcnn) and Bottom-Up Attention.
 We therefore upload our generated features.
 
-Download [test features.hdf5](https://drive.google.com/file/d/1Uwv5S8qPp0rkCtR2bD8PNiYsJ0WL-u5a/view?usp=sharing) and [train_feature.hdf5](https://drive.google.com/file/d/1zxghit_mDyIKhZRemN6EDCZ3xMR4xPu5/view?usp=sharing)(20GB) to `data/flickr30k`.
+Download [train_feature.hdf5](https://drive.google.com/file/d/1zxghit_mDyIKhZRemN6EDCZ3xMR4xPu5/view?usp=sharing)(20GB), [val features.hdf5](https://drive.google.com/file/d/1W_m8QdSmEZfsLj-clGE7lPOJV6jJgNa_/view?usp=sharing), and [test features.hdf5](https://drive.google.com/file/d/1Uwv5S8qPp0rkCtR2bD8PNiYsJ0WL-u5a/view?usp=sharing)to `data/flickr30k`.
 
-Download [test_detection_dict.json](https://drive.google.com/file/d/1-r4u45EyxY7uaIk6VxCZxCiBxaOlaTC2/view?usp=sharing) and [train_detection_dict.json](https://drive.google.com/file/d/1_S-zyKF7F8SIEht6V66Sqbsz9TBqzY-P/view?usp=sharing) to `data/`.
+Download [train_detection_dict.json](https://drive.google.com/file/d/1_S-zyKF7F8SIEht6V66Sqbsz9TBqzY-P/view?usp=sharing), [val_detection_dict.json](https://drive.google.com/file/d/1KmyG0mghwydkb7pEwxDjItwZvNi_DRA4/view?usp=sharing), and [test_detection_dict.json](https://drive.google.com/file/d/1-r4u45EyxY7uaIk6VxCZxCiBxaOlaTC2/view?usp=sharing) and  to `data/`.
+
+#### Generate object proposals by yourself(TODO)
 
 ~~run ` sh tools/prepare_detection.sh ` to clone faster-rcnn code and download pre-trained models.~~
 
