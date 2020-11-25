@@ -26,7 +26,7 @@ class Flickr30dataset(Dataset):
 			print("load vgg features")
 			h5_path = os.path.join(dataroot, 'vgg_dataset_pascal_vgbbox.hdf5')
 		else:
-			h5_path = os.path.join(dataroot, '%s_features.hdf5' % name)
+			h5_path = os.path.join(dataroot, '%s_features_compress.hdf5' % name)
 
 		with h5py.File(h5_path, 'r') as hf:
 			self.features = np.array(hf.get('features'))
@@ -36,8 +36,9 @@ class Flickr30dataset(Dataset):
 		entry = self.entries[index]
 		if self.vgg:
 			attrs = []
-		else :
-			attrs = entry['attrs']
+		else:
+			attrs = []
+			# attrs = entry['attrs']
 		return entry['image'], entry['labels'], entry['query'], attrs, entry['detected_bboxes'], entry['target_bboxes']
 
 	def __getitem__(self, index):
@@ -82,8 +83,8 @@ class Flickr30dataset(Dataset):
 			attr_idx = [0] * K
 		else:
 			attr_idx = [0] * K
-			attr_idx[:num_obj] = [max(self.indexer.index_of(w), 1) for w in attrs]
-			attr_idx = attr_idx[:K]
+			# attr_idx[:num_obj] = [max(self.indexer.index_of(w), 1) for w in attrs]
+			# attr_idx = attr_idx[:K]
 
 		querys_idx = []
 		for q in querys:
@@ -116,13 +117,13 @@ class Flickr30dataset(Dataset):
 		target_bboxes = target_bboxes[:Q]
 
 		assert len(labels_idx) == K
-		assert len(attr_idx) == K
 		assert len(bboxes) == K
 		assert len(querys_idx) == Q
 		assert len(target_bboxes) == Q
 
 		return torch.tensor(int(imgid)), torch.tensor(labels_idx), torch.tensor(attr_idx), feature, \
-			   torch.tensor(querys_idx), bboxes, torch.tensor(target_bboxes), torch.tensor(num_obj), torch.tensor(num_query)
+			   torch.tensor(querys_idx), bboxes, torch.tensor(target_bboxes), torch.tensor(num_obj), torch.tensor(
+			num_query)
 
 	def __len__(self):
 		return len(self.entries)
@@ -176,12 +177,12 @@ def load_train_flickr30k(dataroot, img_id2idx, obj_detection, vgg = False):
 			image_id = str(image_id)
 			bboxes = obj_detection[image_id]['bboxes']
 			labels = obj_detection[image_id]['classes']  # [B, 4]
-			# features =  obj_detection[image_id]['features']
+		# features =  obj_detection[image_id]['features']
 		else:
 			image_id = str(image_id)
 			bboxes = obj_detection[image_id]['bboxes']
 			labels = obj_detection[image_id]['classes']  # [B, 4]
-			attrs = obj_detection[image_id]['attrs']
+			attrs = obj_detection[image_id]['attrs'] if 'attrs' in obj_detection[image_id].keys() else []
 
 		assert (len(bboxes) == len(labels))
 
@@ -254,7 +255,7 @@ def load_dataset(name = 'train', dataroot = 'data/flickr30k/', vgg = False):
 		obj_detection_dict = json.load(open("data/obj_detection_vgg_pascal_vgbbox.json", "r"))
 		img_id2idx = cPickle.load(open(os.path.join(dataroot, 'vgg_pascal_vgbbox_%s_imgid2idx.pkl' % name), 'rb'))
 	else:
-		obj_detection_dict = json.load(open("data/%s_dataset.json" % name, "r"))
+		obj_detection_dict = json.load(open("data/%s_detection_dict.json" % name, "r"))
 		img_id2idx = cPickle.load(open(os.path.join(dataroot, '%s_imgid2idx.pkl' % name), 'rb'))
 
 	entries = load_train_flickr30k(dataroot, img_id2idx, obj_detection_dict, vgg = vgg)
@@ -283,11 +284,3 @@ def gen_obj_dict(obj_detection):
 
 		obj_detect_dict[img_id] = tmp
 	return obj_detect_dict
-
-
-if __name__ == "__main__":
-	name = "test"
-	obj_detection = json.load(open("data/obj_detection_0.1.json", "r"))
-	obj_detection_dict = gen_obj_dict(obj_detection)
-	with open("data/%s_detect_dict.json" % name, "w") as f:
-		json.dump(obj_detection_dict, f)

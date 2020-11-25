@@ -72,10 +72,8 @@ class MATnet(nn.Module):
 
 		q_max_att = torch.max(att, dim = 3).values  # [B, querys, Q]
 		q_max_norm_att = self.softmax(q_max_att)
-
 		# attended
 		p_emb = torch.einsum('byq,byqd -> byd', q_max_norm_att, q_emb)  # [B, querys, dim]
-
 		# average
 		# len_query = torch.sum((query==0), dim=-1) # [B, querys]
 		# len_query = len_query.unsqueeze(-1).expand(query.size(0), query.size(1), q_emb.size(3))# [B, querys, dim]
