@@ -1,16 +1,16 @@
+import argparse
 import os
 import random
 import warnings
-import argparse
 
 import numpy as np
 import torch
 from torch.utils.data import DataLoader
 
 from dataset import Flickr30dataset
-from utils.utils import load_vocabulary
 from model import MATnet
-from train_model import train
+from train_model import train, evaluate
+from utils.utils import load_vocabulary
 
 with warnings.catch_warnings():
 	warnings.filterwarnings("ignore", category = FutureWarning)
@@ -67,7 +67,7 @@ if __name__ == '__main__':
 		model.cuda()
 
 	if args.eval:
-		score = (test_loader, model)
+		score = evaluate(test_loader, model)
 		print("untrained eval score:", score)
 	else:
 		train_dset = Flickr30dataset(wordEmbedding, "train", vgg = args.vgg)
